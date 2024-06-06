@@ -4,17 +4,22 @@ dynamic = ["version"]
 description = "Swahili sentiment analysis with BERT model"
 readme = "README.md"
 requires-python = ">=3.12"
-license = "MIT"
-keywords = []
+license = "ELv2"
+keywords = ["ML", "NLP", "BERT", "Swahili", "Sentiment Analysis", "Machine Learning", "Natural Language Processing"]
 authors = [
   { name = "Andrew Kariuki", email = "andrew.o.kariuki@gmail.com" },
 ]
 classifiers = [
-  "Intended Audience :: Researchers",
+  "Intended Audience :: Developers",
   "Programming Language :: Python :: 3.12",
   "Programming Language :: Python :: 3 :: Only",
 ]
-dependencies = []
+dependencies = [
+  "itsdangerous==2.2.0",
+  "pydantic==2.7.3",
+  "python-multipart==0.0.9",
+  "pydantic-settings==2.3.1",
+]
 
 [project.scripts]
 swa-bert = "swa_bert.cli.__main__:app"
@@ -44,7 +49,24 @@ allow-direct-references = true
 [tool.hatch.envs.default]
 installer = "uv"
 python = "3.12"
-dependencies = []
+dependencies = [
+  "asgi-lifespan",
+  "beautifulsoup4",
+  "coverage[toml]",
+  "gevent",
+  "httpx",
+  "libcst",
+  "mypy",
+  "pytest",
+  "pytest-cov",
+  "pytest-asyncio==0.21.1",
+  "pytest-mock",
+  "pytest-xdist",
+  "respx",
+  "ruff",
+  "types-python-slugify",
+  "types-pytz",
+]
 
 [tool.hatch.envs.default.scripts]
 test = "pytest {args}"
@@ -101,3 +123,37 @@ per-file-ignores = { "conftest.py" = ["E731"], "tests/*" = ["TRY"], "swa_bert/re
 [build-system]
 requires = ["hatchling", "hatch-regex-commit"]
 build-backend = "hatchling.build"
+
+
+# "aiomysql ==0.2.0",
+#   "aiosqlite==0.20.0",
+#   "alembic==1.13.1",
+#   "apscheduler==3.10.4",
+#   "argon2-cffi==23.1.0",
+#   "asgi-babel==0.9.3",
+#   "asyncpg==0.29.0",
+#   "dramatiq[redis]==1.16.0",
+#   "email-validator==2.1.1",
+#   "fastapi==0.111.0",
+#   "furl==2.1.3",
+#   "httpx-oauth==0.13.2",
+#   "itsdangerous==2.1.2",
+#   "Jinja2==3.1.3",
+#   "jwcrypto==1.5.6",
+#   "loguru==0.7.2",
+#   "phonenumbers>=8.12.48,<8.14",
+#   "posthog>=3.0.1,<4",
+#   "postmarker==1.0",
+
+#   "pwdlib[argon2,bcrypt]==0.2.0",
+#   "psycopg2==2.9.9",
+#   "pycountry>=23,<24",
+#   "python-slugify==8.0.4",
+#   "pytz==2024.1",
+#   "rich==13.7.1",
+#   "sqlalchemy[mypy] ==2.0.29",
+#   "sqlalchemy-utils ==0.41.2",
+#   "typer==0.10.0",
+#   "uvicorn[standard]==0.29.0",
+#   "WTForms==3.1.2",
+#   "zxcvbn-rs-py==0.1.1",

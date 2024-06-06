@@ -184,7 +184,3 @@ sqlite/
 
 # Ruff
 .ruff_cache
-
-# vscode
-.vscode/
-*.json
