@@ -4,7 +4,7 @@ dynamic = ["version"]
 description = "Swahili sentiment analysis with BERT model"
 readme = "README.md"
 requires-python = ">=3.12"
-license = "ELv2"
+license = {file = "LICENSE.txt"}
 keywords = ["ML", "NLP", "BERT", "Swahili", "Sentiment Analysis", "Machine Learning", "Natural Language Processing"]
 authors = [
   { name = "Andrew Kariuki", email = "andrew.o.kariuki@gmail.com" },
