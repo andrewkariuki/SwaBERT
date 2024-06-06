@@ -1,52 +1,82 @@
-[build-system]
-requires = ["hatchling"]
-build-backend = "hatchling.build"
-
 [project]
 name = "swa-bert"
 dynamic = ["version"]
-description = ''
+description = "Swahili sentiment analysis with BERT model"
 readme = "README.md"
-requires-python = ">=3.8"
+requires-python = ">=3.12"
 license = "MIT"
 keywords = []
 authors = [
   { name = "Andrew Kariuki", email = "andrew.o.kariuki@gmail.com" },
 ]
 classifiers = [
-  "Development Status :: 4 - Beta",
-  "Programming Language :: Python",
-  "Programming Language :: Python :: 3.8",
-  "Programming Language :: Python :: 3.9",
-  "Programming Language :: Python :: 3.10",
-  "Programming Language :: Python :: 3.11",
+  "Intended Audience :: Researchers",
   "Programming Language :: Python :: 3.12",
-  "Programming Language :: Python :: Implementation :: CPython",
-  "Programming Language :: Python :: Implementation :: PyPy",
+  "Programming Language :: Python :: 3 :: Only",
 ]
 dependencies = []
+
+[project.scripts]
+swa-bert = "swa_bert.cli.__main__:app"
 
 [project.urls]
 Documentation = "https://github.com/andrewkariuki/swa-bert#readme"
 Issues = "https://github.com/andrewkariuki/swa-bert/issues"
 Source = "https://github.com/andrewkariuki/swa-bert"
 
+[tool.hatch]
+
+[tool.hatch.build]
+include = [
+  "/swa_bert/**/*.py",
+  "/swa_bert/py.typed",
+]
+artifacts = []
+
 [tool.hatch.version]
-path = "swa_bert/__about__.py"
+source = "regex_commit"
+commit_extra_args = ["-e"]
+path = "swa_bert/__init__.py"
+
+[tool.hatch.metadata]
+allow-direct-references = true
+
+[tool.hatch.envs.default]
+installer = "uv"
+python = "3.12"
+dependencies = []
+
+[tool.hatch.envs.default.scripts]
+test = "pytest {args}"
+test-cov-xml = "pytest --cov swa_bert/ --cov-report=xml --exitfirst"
+
+lint = [
+  "ruff format .",
+  "ruff check --fix .",
+  "mypy swa_bert/",
+]
+lint-check = [
+  "ruff format --check .",
+  "ruff check .",
+  "mypy swa_bert/",
+]
 
 [tool.hatch.envs.types]
 extra-dependencies = [
   "mypy>=1.0.0",
 ]
+
 [tool.hatch.envs.types.scripts]
 check = "mypy --install-types --non-interactive {args:swa_bert tests}"
 
 [tool.coverage.run]
 source_pkgs = ["swa_bert", "tests"]
+concurrency = ["thread", "gevent"]
 branch = true
 parallel = true
 omit = [
-  "swa_bert/__about__.py",
+  "swa_bert/__init__.py",
+  "swa_bert/alembic/*"
 ]
 
 [tool.coverage.paths]
@@ -59,3 +89,15 @@ exclude_lines = [
   "if __name__ == .__main__.:",
   "if TYPE_CHECKING:",
 ]
+
+[tool.ruff]
+target-version = "py311"
+
+[tool.ruff.lint]
+extend-select = ["I", "TRY", "UP"]
+ignore = ["E501"]
+per-file-ignores = { "conftest.py" = ["E731"], "tests/*" = ["TRY"], "swa_bert/repositories/*" = ["E711", "E712"], "swa_bert/alembic/*" = ["F401"]}
+
+[build-system]
+requires = ["hatchling", "hatch-regex-commit"]
+build-backend = "hatchling.build"
